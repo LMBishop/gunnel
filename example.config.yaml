@@ -4,3 +4,7 @@ wireGuard:
   port: "4444"
   interfaceName: "tunnel"
 expireAfter: 86400
+#tls:
+#  enabled: true
+#  cert: "/etc/ssl/certs/tun.example.com.crt"
+#  key: "/etc/ssl/private/tun.example.com.key"
