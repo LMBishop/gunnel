@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{.Host}} tunneling service</title>
+
+    <style>
+        dt {
+            font-weight: bold;
+        }
+
+        dd {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{.Host}} tunneling service</h1>
+    <p>
+        This service uses WireGuard to expose your local server to the Internet.
+        (No custom client needed!)
+    </p>
+
+    <h2>Usage</h2>
+
+    <p>
+        In your terminal:
+    </p>
+
+    <pre>
+curl -sSL http://{{.Host}}/[PORT YOU WANT TO FORWARD] | sh
+    </pre>
+
+    <p>
+        For example, to forward port 8080:
+    </p>
+
+    <pre>
+curl -sSL http://{{.Host}}/8080 | sh
+    </pre>
+
+    <p>
+        You will receive a URL that you can use to access your server from anywhere.
+    </p>
+
+    <h2>Policy</h2>
+
+    <dl>
+        <dt>Interface name: {{.Iface}}</dt>
+        <dd>The automated set up script will overwrite any existing interface with this name with its own.</dd>
+
+        <dt>Inactivity time: {{.ExpireAfter}} seconds</dt>
+        <dd>Tunnels will expire after this amount of time. (You will need to re-create a new one.)</dd>
+    </dl>
+
+</body>
+
+</html>

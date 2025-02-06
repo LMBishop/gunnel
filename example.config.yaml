@@ -1,0 +1,6 @@
+host: "tun.example.com"
+wireGuard:
+  network: "10.69.0.0/16"
+  port: "4444"
+  interfaceName: "tunnel"
+expireAfter: 86400
