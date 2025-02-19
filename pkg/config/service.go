@@ -22,6 +22,10 @@ type Config struct {
 		Port          string `yaml:"port" validate:"required"`
 		InterfaceName string `yaml:"interfaceName" validate:"required"`
 	} `yaml:"wireGuard"`
+	Permissions struct {
+		Enabled   bool   `yaml:"enabled"`
+		SecretKey string `yaml:"secretKey"`
+	}
 	ExpireAfter int `yaml:"expireAfter"`
 }
 
@@ -93,6 +97,10 @@ func (s *service) validateConfig(c *Config) error {
 		if i.Name == c.WireGuard.InterfaceName {
 			return fmt.Errorf("an interface already exists with the name '%s'", i.Name)
 		}
+	}
+
+	if c.Permissions.Enabled && len(c.Permissions.SecretKey) == 0 {
+		return fmt.Errorf("requested permissioned setup but no secret key was given")
 	}
 
 	return nil

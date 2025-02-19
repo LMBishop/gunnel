@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"crypto/subtle"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -36,6 +37,13 @@ func NewPeer(storeService store.Service, wireguardService wireguard.Service, con
 	return func(w http.ResponseWriter, r *http.Request) {
 		params := mux.Vars(r)
 		port := params["port"]
+		key := r.URL.Query().Get("key")
+
+		if configService.Config().Permissions.Enabled {
+			if subtle.ConstantTimeCompare([]byte(key), []byte(configService.Config().Permissions.SecretKey)) != 1 {
+				http.Error(w, "bad key", http.StatusForbidden)
+			}
+		}
 
 		peer, err := wireguardService.NewPeer()
 		if err != nil {

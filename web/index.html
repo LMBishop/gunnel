@@ -52,6 +52,14 @@ curl -sSL http://{{.Host}}/8080 | sh
 
         <dt>Inactivity time: {{.ExpireAfter}} seconds</dt>
         <dd>Tunnels will expire after this amount of time. (You will need to re-create a new one.)</dd>
+
+        <dt>Permissioned: {{.Permissioned}}</dt>
+        <dd>If true, a secret key will also need to be passed to create a tunnel.</dd>
+        <dd>
+            <pre>
+curl -sSL http://{{.Host}}/[PORT YOU WANT TO FORWARD]?key=[SECRET KEY] | sh
+            </pre>
+        </dd>
     </dl>
 
 </body>
